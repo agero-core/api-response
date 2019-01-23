@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+      <TargetFramework>net461</TargetFramework>
+      <PackageId>Agero.Core.ApiResponse</PackageId>
+      <PackageTags>apiresponse, api</PackageTags>
+      <Version>1.0.0</Version>
+      <Authors>Core Automation Team</Authors>
+      <Company>Agero Inc.</Company>
+      <Copyright>Copyright © Agero 2019</Copyright>
+      <Product>Agero API Response Library</Product>
+      <Description>Library for convenient handling of responses in APIs</Description>
+      <Title>Api Response</Title>
+      <PackageProjectUrl>https://github.com/agero-core/api-response</PackageProjectUrl>
+      <PackageReleaseNotes></PackageReleaseNotes>
+      <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+      <PackageIconUrl>https://secure.gravatar.com/avatar/8b6c044292b862f1870550039390f631</PackageIconUrl>
+      <PackageLicenseUrl>https://raw.githubusercontent.com/agero-core/api-response/master/LICENSE.md</PackageLicenseUrl>
+      <RepositoryUrl>https://github.com/agero-core/api-response.git</RepositoryUrl>
+      <RepositoryType>git</RepositoryType>
+      <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+      <GenerateDocumentationFile>true</GenerateDocumentationFile>
+      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+      <PublishRepositoryUrl>true</PublishRepositoryUrl>
+      <RootNamespace>Agero.Core.ApiResponse</RootNamespace>
+      <AssemblyName>Agero.Core.ApiResponse</AssemblyName>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Agero.Core.Checker" Version="1.0.11" />
+      <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+      <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+      <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+      </ItemGroup>
+
+</Project>
