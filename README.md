@@ -39,5 +39,10 @@ IResponseHandler provides **HandleValidationErrorsAsync** and **HandleValidation
 ```csharp
 var errors = new string[]{ "This is a sample test error." }
 
-var httpResponseMessageWithErrors = await asyncResponseHandler.HandleValidationErrorsAsync(request: httpRequestMessage, errors: errors);
+var httpResponseMessageWithErrors = 
+    await asyncResponseHandler.HandleValidationErrorsAsync
+    (
+        request : httpRequestMessage,
+        errors : errors
+    );
 ```
