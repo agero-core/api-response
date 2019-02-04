@@ -10,8 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Properties", "Properties", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agero.Core.ApiResponse", "Agero.Core.ApiResponse\Agero.Core.ApiResponse.csproj", "{5F0FD491-AC70-4012-908A-D0215FA39EAC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agero.Core.ApiResponse.Tests", "Agero.Core.ApiResponse.Tests\Agero.Core.ApiResponse.Tests.csproj", "{193EF7C4-7A07-4EB9-8CC0-E2778DEBCC23}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agero.Core.ApiResponse.Web", "Agero.Core.ApiResponse.Web\Agero.Core.ApiResponse.Web.csproj", "{50554E86-F86A-4BAF-A24E-AD8851161E5C}"
 EndProject
 Global
@@ -24,10 +22,6 @@ Global
 		{5F0FD491-AC70-4012-908A-D0215FA39EAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F0FD491-AC70-4012-908A-D0215FA39EAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F0FD491-AC70-4012-908A-D0215FA39EAC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{193EF7C4-7A07-4EB9-8CC0-E2778DEBCC23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{193EF7C4-7A07-4EB9-8CC0-E2778DEBCC23}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{193EF7C4-7A07-4EB9-8CC0-E2778DEBCC23}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{193EF7C4-7A07-4EB9-8CC0-E2778DEBCC23}.Release|Any CPU.Build.0 = Release|Any CPU
 		{50554E86-F86A-4BAF-A24E-AD8851161E5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{50554E86-F86A-4BAF-A24E-AD8851161E5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50554E86-F86A-4BAF-A24E-AD8851161E5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
