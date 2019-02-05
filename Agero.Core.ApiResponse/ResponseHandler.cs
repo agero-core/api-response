@@ -61,8 +61,7 @@ namespace Agero.Core.ApiResponse
             Check.ArgumentIsNull(request, "request");
             Check.ArgumentIsNull(exception, "exception");
 
-            var baseException = exception as BaseException;
-            if (baseException != null)
+            if (exception is BaseException baseException)
                 return await HandleBaseExceptionAsync(request, baseException);
 
             return await HandleUnexpectedExceptionAsync(request, exception);
@@ -78,6 +77,7 @@ namespace Agero.Core.ApiResponse
             Check.ArgumentIsNull(exception, "exception");
 
             var data = await CreateExceptionLogDataAsync(request, exception, exception.HttpStatusCode, exception.Code);
+
             LogInfo(exception.Message, data);
 
             return CreateBaseExceptionResponse(request, exception);
@@ -97,6 +97,7 @@ namespace Agero.Core.ApiResponse
             const HttpStatusCode STATUS = HttpStatusCode.InternalServerError;
 
             var data = await CreateExceptionLogDataAsync(request, exception, STATUS, CODE);
+
             if (exception is TaskCanceledException || exception is OperationCanceledException) 
                 LogInfo(exception.Message, data);
             else

@@ -1,4 +1,6 @@
-﻿using Agero.Core.DIContainer;
+﻿using System.Threading.Tasks;
+using Agero.Core.ApiResponse.Extensions;
+using Agero.Core.DIContainer;
 using Agero.Core.Lazy;
 
 namespace Agero.Core.ApiResponse.Web
@@ -12,7 +14,12 @@ namespace Agero.Core.ApiResponse.Web
         {
             var container = ContainerFactory.Create();
 
-            container.RegisterFactoryMethod<IResponseHandler>(c => new AsyncResponseHandler(), Lifetime.PerContainer);
+            container.RegisterFactoryMethod<IResponseHandler>(c => new AsyncResponseHandler(
+                logInfoAsync: async (message, obj) => await Task.FromResult(0),
+                logErrorAsync: async (message, obj) => await Task.FromResult(0),
+                extractAdditionalData: (ex => ex.ExtractAdditionalData()),
+                includeExceptionDetails: true
+                ), Lifetime.PerContainer);
 
             return container;
         }
