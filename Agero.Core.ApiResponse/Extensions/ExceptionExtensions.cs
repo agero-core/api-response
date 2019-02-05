@@ -1,7 +1,7 @@
-﻿using Agero.Core.Checker;
-using System;
-using Agero.Core.ApiResponse.Exceptions;
+﻿using Agero.Core.ApiResponse.Exceptions;
 using Agero.Core.ApiResponse.Models;
+using Agero.Core.Checker;
+using System;
 
 namespace Agero.Core.ApiResponse.Extensions
 {

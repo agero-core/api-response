@@ -1,6 +1,6 @@
-﻿using System.Web.Http;
-using Agero.Core.ApiResponse.Filters;
+﻿using Agero.Core.ApiResponse.Filters;
 using Agero.Core.ApiResponse.Handlers;
+using System.Web.Http;
 
 namespace Agero.Core.ApiResponse.Web
 {

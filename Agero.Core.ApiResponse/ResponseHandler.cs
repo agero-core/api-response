@@ -1,11 +1,11 @@
-﻿using Agero.Core.Checker;
+﻿using Agero.Core.ApiResponse.Exceptions;
+using Agero.Core.ApiResponse.Models;
+using Agero.Core.Checker;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Agero.Core.ApiResponse.Exceptions;
-using Agero.Core.ApiResponse.Models;
 
 namespace Agero.Core.ApiResponse
 {

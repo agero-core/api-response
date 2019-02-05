@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Agero.Core.ApiResponse.Models;
+using System;
 using System.Net;
-using Agero.Core.ApiResponse.Models;
 
 namespace Agero.Core.ApiResponse.Exceptions
 {

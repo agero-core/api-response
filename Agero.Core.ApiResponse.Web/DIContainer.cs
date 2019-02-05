@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Agero.Core.ApiResponse.Extensions;
+﻿using Agero.Core.ApiResponse.Extensions;
 using Agero.Core.DIContainer;
 using Agero.Core.Lazy;
+using System.Threading.Tasks;
 
 namespace Agero.Core.ApiResponse.Web
 {

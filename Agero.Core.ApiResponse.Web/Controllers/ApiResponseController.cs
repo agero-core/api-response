@@ -1,8 +1,8 @@
-﻿using System.Net.Http;
+﻿using Agero.Core.ApiResponse.Web.Models;
+using Agero.Core.Validator;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Agero.Core.ApiResponse.Web.Models;
-using Agero.Core.Validator;
 
 namespace Agero.Core.ApiResponse.Web.Controllers
 {

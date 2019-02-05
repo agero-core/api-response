@@ -1,9 +1,9 @@
-﻿using Agero.Core.Checker;
+﻿using Agero.Core.ApiResponse.Helpers;
+using Agero.Core.ApiResponse.Models;
+using Agero.Core.Checker;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Agero.Core.ApiResponse.Helpers;
-using Agero.Core.ApiResponse.Models;
 
 namespace Agero.Core.ApiResponse.Extensions
 {
