@@ -7,7 +7,7 @@ API Response is a **.NET Framework (>= v4.6.1)** library for convenient handling
 Create and setup an instance of [IResponseHandler](./Agero.Core.ApiResponse/IResponseHandler.cs)
 ```csharp
 var responseHandler = new ResponseHandler(
-    // Setup info logging 
+	// Setup info logging 
 	logInfo: (message, data) => Debug.WriteLine($"INFO: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
 	// Setup error logging 
 	logError: (message, data) => Debug.WriteLine($"ERROR: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
@@ -54,7 +54,7 @@ and it will create the following log:
       "method":"GET",
       "url":"http://localhost:64272/responses/applicationError",
       "body":"",
-      "headers":[ ... ]
+      "headers":[ ]
    },
    "response":{  
       "status":500,
