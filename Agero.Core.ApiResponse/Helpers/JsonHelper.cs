@@ -15,17 +15,16 @@ namespace Agero.Core.ApiResponse.Helpers
             try
             {
                 var obj = JsonConvert.DeserializeObject(json);
-
-                if (obj == null)
-                    return json;
-
-                if (obj is JObject jObj)
+                switch (obj)
                 {
-                    MaskPassword(jObj);
-                    return JsonConvert.SerializeObject(jObj);
+                    case null:
+                        return json;
+                    case JObject jObj:
+                        MaskPassword(jObj);
+                        return JsonConvert.SerializeObject(jObj);
+                    default:
+                        return json;
                 }
-
-                return json;
             }
             catch (JsonReaderException)
             {
@@ -39,9 +38,9 @@ namespace Agero.Core.ApiResponse.Helpers
 
             foreach (var token in obj)
             {
-                if (token.Value is JObject jObj)
+                if (token.Value is JObject propertyObject)
                 {
-                    MaskPassword(jObj);
+                    MaskPassword(propertyObject);
                     continue;
                 }
 

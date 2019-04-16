@@ -8,7 +8,7 @@ using System.Web.Http.Filters;
 namespace Agero.Core.ApiResponse.Filters
 {
     /// <summary>Exception filter attribute</summary>
-    public class ExceptionHandlingFilterAttribute : ExceptionFilterAttribute
+    public class ExceptionHandlingFilterAttribute: ExceptionFilterAttribute
     {
         /// <summary>Constructor</summary>
         /// <param name="responseHandler">Response handler</param>
