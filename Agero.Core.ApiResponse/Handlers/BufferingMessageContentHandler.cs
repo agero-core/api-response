@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Agero.Core.ApiResponse.Handlers
 {
-    /// <summary>Handlers which enables reading request's content more than one time</summary>
+    /// <summary>Handler which enables reading request's content more than one time</summary>
     public class BufferingMessageContentHandler : DelegatingHandler
     {
         /// <summary>Sends an HTTP request to the inner handler to send to the server as an asynchronous operation</summary>
