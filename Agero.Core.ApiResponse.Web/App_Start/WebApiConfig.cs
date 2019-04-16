@@ -22,7 +22,8 @@ namespace Agero.Core.ApiResponse.Web
             var responseHandler = new ResponseHandler(
                 logInfo: (message, data) => Debug.WriteLine($"INFO: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
                 logError: (message, data) => Debug.WriteLine($"ERROR: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
-                extractAdditionalData: ex => ex.ExtractAdditionalData());
+                extractAdditionalData: ex => ex.ExtractAdditionalData(),
+                includeExceptionDetails: true);
 
             config.Filters.Add(new ExceptionHandlingFilterAttribute(responseHandler));
         }

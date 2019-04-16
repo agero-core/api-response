@@ -9,7 +9,7 @@
       <Company>Agero Inc.</Company>
       <Copyright>Copyright © Agero 2019</Copyright>
       <Product>API Response Library</Product>
-      <Description>.NET Framework library for convenient handling of responses in APIs</Description>
+      <Description>.NET Framework library for convenient handling of responses and its logging in APIs</Description>
       <Title>API Response</Title>
       <PackageProjectUrl>https://github.com/agero-core/api-response</PackageProjectUrl>
       <PackageReleaseNotes></PackageReleaseNotes>

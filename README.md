@@ -1,35 +1,111 @@
-# Api Response
+# API Response
 
-Api Resonse is a **.NET Framework** library for convenient handling of responses in API's.
+API Response is a **.NET Framework (>= v4.6.1)** library for convenient handling of responses and its logging in APIs.
 
-## Usage:
+## Setup:
 
-API Resonse library provides an implementation of DelegatingHandler, **BufferingMessageContentHandler**, which intercepts the HTTP request made to the server and helps keep the content of the http request in the buffer. Since, the content is a stream that can be read only once, to read it many times we need to buffer it before anybody requests it. To use **BufferingMessageContentHandler**, register an instance with the **HttpConfiguration**.
+Create and setup an instance of [IResponseHandler](./Agero.Core.ApiResponse/IResponseHandler.cs)
+```csharp
+var responseHandler = new ResponseHandler(
+    // Setup info logging 
+	logInfo: (message, data) => Debug.WriteLine($"INFO: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
+	// Setup error logging 
+	logError: (message, data) => Debug.WriteLine($"ERROR: {message}{Environment.NewLine}{JsonConvert.SerializeObject(data)}"),
+	// For logging, setup a way to extract additional data from exceptions
+	extractAdditionalData: ex => ex.ExtractAdditionalData(),
+	// Define whether exception details should be included in HTTP response
+	includeExceptionDetails: true);
+```
 
+Register an instance of [ExceptionHandlingFilterAttribute](./Agero.Core.ApiResponse/Filters/ExceptionHandlingFilterAttribute.cs) in [HttpConfiguration](https://docs.microsoft.com/en-us/previous-versions/aspnet/hh833997(v=vs.118)):
+```csharp
+config.Filters.Add(new ExceptionHandlingFilterAttribute(responseHandler));
+```
+
+Register [BufferingMessageContentHandler](./Agero.Core.ApiResponse/Handlers/BufferingMessageContentHandler.cs) to cache request data, which is required for the library: 
 ```csharp
 httpConfig.MessageHandlers.Add(new BufferingMessageContentHandler());
 ```
 
-API Response library provides two implementations of IResponseHandler, **AsyncResponseHandler** and **ResponseHandler**. Below example uses **AsyncResponseHandler**.
+## Usage (common exception):
 
+Throw an exception during request:
 ```csharp
-IResponseHandler asyncResponseHandler = 
-    new AsyncResponseHandler(
-        //optional method to handle information logging
-        logInfoAsync: async (message, obj) => await Task.FromResult(0),
-        //optional method to handle logging errors
-        logErrorAsync: async (message, obj) => await Task.FromResult(0),
-        //optional method that extracts exception additional data
-        extractAdditionalData : (ex => ex.ExtractAdditionalData()),
-        //optinal: By default set to true
-        includeExceptionDetails : false
-);
+throw new Exception("Application error.");
+```
+and API will return the following response with 500 (Internal Server Error) HTTP status:
+```json
+{
+    "error": {
+        "message": "Application error.",
+        "type": "System.Exception",
+        "stackTrace": "...",
+        "innerError": null,
+        "data": null
+    },
+    "message": "Unexpected error",
+    "code": "UNEXPECTED_ERROR"
+}
+```
+and it will create the following log:
+```json
+{  
+   "request":{  
+      "method":"GET",
+      "url":"http://localhost:64272/responses/applicationError",
+      "body":"",
+      "headers":[ ... ]
+   },
+   "response":{  
+      "status":500,
+      "code":"UNEXPECTED_ERROR",
+      "exception":{  
+         "message":"Application error.",
+         "type":"System.Exception",
+         "stackTrace":"...",
+         "innerError":null,
+         "data":null
+      }
+   }
+}
 ```
 
-Api Response library provides an implementation of ExceptionFilterAttribute, **ExceptionHandlingFilterAttribute**, which gets triggered when an exception is thrown during incoming HTTP request processing. To use **ExceptionHandlingFilterAttribute**, register an instance with the **HttpConfiguration**.
+## Usage (detailed exception):
 
+Throw an exception inherited from [BaseException](./Agero.Core.ApiResponse/Exceptions/BaseException.cs) during request, which allows to customize HTTP status and add additional data to log:
 ```csharp
-httpConfig.Filters.Add(new ExceptionHandlingFilterAttribute(asyncResponsehandler));
+throw new BadRequestException("Validation error.", code: "VALIDATION_ERROR", additionalData: new { status = "validation_error" });
+```
+and API will return the following response with 400 (Bad Request) HTTP status:
+```json
+{
+    "message": "Validation error.",
+    "code": "VALIDATION_ERROR"
+}
+```
+and it will create the following log:
+```json
+{  
+   "request":{  
+      "method":"GET",
+      "url":"http://localhost:64272/responses/validationError",
+      "body":"",
+      "headers":[  ]
+   },
+   "response":{  
+      "status":400,
+      "code":"VALIDATION_ERROR",
+      "exception":{  
+         "message":"Validation error.",
+         "type":"Agero.Core.ApiResponse.Exceptions.BadRequestException",
+         "stackTrace":"...",
+         "innerError":null,
+         "data":{  
+            "status":"validation_error"
+         }
+      }
+   }
+}
 ```
 
 For additional usage related info please see [Agero.Core.ApiResponse.Web](./Agero.Core.ApiResponse.Web/).

@@ -7,7 +7,7 @@ using Agero.Core.ApiResponse.Exceptions;
 namespace Agero.Core.ApiResponse.Web.Controllers
 {
     [RoutePrefix("responses")]
-    public class ApiResponseController : ApiController
+    public class ResponseController : ApiController
     {
         [Route("applicationError")]
         [HttpGet]
