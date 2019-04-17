@@ -1,6 +1,6 @@
 # API Response
 
-API Response is a **.NET Framework (>= v4.6.1)** library for convenient handling of responses and its logging in APIs.
+API Response is a **.NET Framework (>= v4.6.1)** library for API response handling and logging.
 
 ## Setup:
 
