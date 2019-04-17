@@ -74,7 +74,10 @@ and it will create the following log:
 
 Throw an exception inherited from [BaseException](./Agero.Core.ApiResponse/Exceptions/BaseException.cs) during request, which allows to customize HTTP status and add additional data to log:
 ```csharp
-throw new BadRequestException("Validation error.", code: "VALIDATION_ERROR", additionalData: new { status = "validation_error" });
+throw new BadRequestException(
+	message:"Validation error.", 
+	code: "VALIDATION_ERROR", 
+	additionalData: new { status = "validation_error" });
 ```
 and API will return the following response with 400 (Bad Request) HTTP status:
 ```json

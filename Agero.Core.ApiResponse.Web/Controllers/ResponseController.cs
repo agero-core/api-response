@@ -22,7 +22,10 @@ namespace Agero.Core.ApiResponse.Web.Controllers
         public async Task<string> GetValidationErrorResponse()
         {
             // See debug logs
-            throw new BadRequestException("Validation error.", code: "VALIDATION_ERROR", additionalData: new { status = "validation_error" });
+            throw new BadRequestException(
+                message:"Validation error.", 
+                code: "VALIDATION_ERROR", 
+                additionalData: new { status = "validation_error" });
         }
     }
 }
