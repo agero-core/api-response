@@ -3,7 +3,7 @@
     <PropertyGroup>
       <TargetFramework>net461</TargetFramework>
       <PackageId>Agero.Core.ApiResponse</PackageId>
-      <PackageTags>API Response Handling, API, ASP.NET</PackageTags>
+      <PackageTags>api-response-handling, api, asp.net</PackageTags>
       <Version>1.0.0</Version>
       <Authors>Core Automation Team</Authors>
       <Company>Agero Inc.</Company>
