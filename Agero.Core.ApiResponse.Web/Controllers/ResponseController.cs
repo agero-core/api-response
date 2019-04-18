@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 using Agero.Core.ApiResponse.Exceptions;
 
@@ -11,7 +10,7 @@ namespace Agero.Core.ApiResponse.Web.Controllers
     {
         [Route("applicationError")]
         [HttpGet]
-        public async Task<HttpResponseMessage> GetApplicationErrorResponse()
+        public HttpResponseMessage GetApplicationErrorResponse()
         {
             // See debug logs
             throw new Exception("Application error.");
@@ -19,7 +18,7 @@ namespace Agero.Core.ApiResponse.Web.Controllers
 
         [Route("validationError")]
         [HttpGet]
-        public async Task<string> GetValidationErrorResponse()
+        public string GetValidationErrorResponse()
         {
             // See debug logs
             throw new BadRequestException(

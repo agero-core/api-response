@@ -4,8 +4,14 @@ using Agero.Core.Checker;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
+
+#if NET461
+using System.Net.Http;
+#elif NETCOREAPP2_1
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+#endif
 
 namespace Agero.Core.ApiResponse
 {
@@ -35,7 +41,11 @@ namespace Agero.Core.ApiResponse
         /// <param name="request">HTTP request message</param>
         /// <param name="errors">Validation errors</param>
         /// <returns>HTTP response message</returns>
+#if NET461
         public virtual async Task<HttpResponseMessage> HandleValidationErrorsAsync(HttpRequestMessage request, IReadOnlyCollection<string> errors)
+#elif NETCOREAPP2_1
+        public virtual async Task<ObjectResult> HandleValidationErrorsAsync(HttpRequest request, IReadOnlyCollection<string> errors)
+#endif
         {
             Check.ArgumentIsNull(request, "request");
             Check.ArgumentIsNull(errors, "errors");
@@ -56,7 +66,11 @@ namespace Agero.Core.ApiResponse
         /// <param name="request">HTTP request message</param>
         /// <param name="exception">Exception</param>
         /// <returns>HTTP response message</returns>
+#if NET461
         public virtual async Task<HttpResponseMessage> HandleExceptionAsync(HttpRequestMessage request, Exception exception)
+#elif NETCOREAPP2_1
+        public virtual async Task<ObjectResult> HandleExceptionAsync(HttpRequest request, Exception exception)
+#endif
         {
             Check.ArgumentIsNull(request, "request");
             Check.ArgumentIsNull(exception, "exception");
@@ -71,7 +85,11 @@ namespace Agero.Core.ApiResponse
         /// <param name="request">HTTP request message</param>
         /// <param name="exception">Base exception</param>
         /// <returns>HTTP response message</returns>
+#if NET461
         protected virtual async Task<HttpResponseMessage> HandleBaseExceptionAsync(HttpRequestMessage request, BaseException exception)
+#elif NETCOREAPP2_1
+        protected virtual async Task<ObjectResult> HandleBaseExceptionAsync(HttpRequest request, BaseException exception)
+#endif
         {
             Check.ArgumentIsNull(request, "request");
             Check.ArgumentIsNull(exception, "exception");
@@ -87,7 +105,11 @@ namespace Agero.Core.ApiResponse
         /// <param name="request">HTTP request message</param>
         /// <param name="exception">Unexpected exception</param>
         /// <returns>HTTP response message</returns>
+#if NET461
         protected virtual async Task<HttpResponseMessage> HandleUnexpectedExceptionAsync(HttpRequestMessage request, Exception exception)
+#elif NETCOREAPP2_1
+        protected virtual async Task<ObjectResult> HandleUnexpectedExceptionAsync(HttpRequest request, Exception exception)
+#endif
         {
             Check.ArgumentIsNull(request, "request");
             Check.ArgumentIsNull(exception, "exception");

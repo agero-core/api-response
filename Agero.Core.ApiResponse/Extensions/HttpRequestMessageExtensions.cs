@@ -1,4 +1,6 @@
-﻿using Agero.Core.ApiResponse.Helpers;
+﻿#if NET461
+
+using Agero.Core.ApiResponse.Helpers;
 using Agero.Core.ApiResponse.Models;
 using Agero.Core.Checker;
 using System.Linq;
@@ -31,3 +33,5 @@ namespace Agero.Core.ApiResponse.Extensions
         }
     }
 }
+
+#endif
