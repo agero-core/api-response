@@ -16,7 +16,7 @@ namespace Agero.Core.ApiResponse.Web.Core.Controllers
             throw new Exception("Application error.");
         }
 
-        [Route("validationException")]
+        [Route("validationError")]
         [HttpGet]
         public ObjectResult GetValidationErrorResponse()
         {
