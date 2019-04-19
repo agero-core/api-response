@@ -40,11 +40,11 @@ namespace Agero.Core.ApiResponse.Web.Core
                 app.UseHsts();
             }
 
-            app.Use(middleware => context =>
+            app.Use(requestDelegate => context =>
             {
                 context.Request.EnableBuffering();
 
-                return middleware(context);
+                return requestDelegate(context);
             });
 
             app.UseHttpsRedirection();
