@@ -1,6 +1,6 @@
 # API Response
 
-API Response is a **.NET Framework (>= v4.6.1)** library for API response handling and logging.
+API Response is a **.NET Framework (>= v4.6.1)** and **.NET Core (>=2.1)** library for API response handling and logging.
 
 ## Setup (.NET Framework):
 
@@ -22,7 +22,7 @@ Register an instance of [ExceptionHandlingFilterAttribute](./Agero.Core.ApiRespo
 config.Filters.Add(new ExceptionHandlingFilterAttribute(responseHandler));
 ```
 
-Register [BufferingMessageContentHandler](./Agero.Core.ApiResponse/Handlers/BufferingMessageContentHandler.cs) to cache request data, which is required for the library: 
+Ensure that request body can be read multiple times by registering [BufferingMessageContentHandler](./Agero.Core.ApiResponse/Handlers/BufferingMessageContentHandler.cs): 
 ```csharp
 httpConfig.MessageHandlers.Add(new BufferingMessageContentHandler());
 ```
@@ -150,4 +150,4 @@ and it will create the following log:
 }
 ```
 
-For additional usage related info please see [Agero.Core.ApiResponse.Web](./Agero.Core.ApiResponse.Web/).
+For additional usage related info please see [Agero.Core.ApiResponse.Web](./Agero.Core.ApiResponse.Web/) (.NET Framework) and [Agero.Core.ApiResponse.Web.Core](./Agero.Core.ApiResponse.Web.Core/) (.NET Core).
