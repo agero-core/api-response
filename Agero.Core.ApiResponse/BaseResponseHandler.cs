@@ -6,8 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
+
+#if NET461
+using System.Net.Http;
+#elif NETCOREAPP2_1
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+#endif
 
 namespace Agero.Core.ApiResponse
 {
@@ -29,6 +35,24 @@ namespace Agero.Core.ApiResponse
         /// <summary>Include exception details like stack trace to response?</summary>
         public bool IncludeExceptionDetails { get; }
 
+#if NET461
+        private static HttpResponseMessage CreateResponse(HttpRequestMessage request, HttpStatusCode statusCode, object response)
+        {
+            Check.ArgumentIsNull(request, "request");
+            Check.ArgumentIsNull(response, "response");
+
+            return request.CreateResponse(statusCode, response);
+        }
+#elif NETCOREAPP2_1
+        private static ObjectResult CreateResponse(HttpRequest request, HttpStatusCode statusCode, object response)
+        {
+            Check.ArgumentIsNull(request, "request");
+            Check.ArgumentIsNull(response, "response");
+
+            return new ObjectResult(response) { StatusCode = (int)statusCode };
+        }
+#endif
+
         /// <summary>Create HTTP response message for validation errors</summary>
         /// <param name="request">HTTP request message</param>
         /// <param name="errors">Validation errors</param>
@@ -36,8 +60,13 @@ namespace Agero.Core.ApiResponse
         /// <param name="message">Response message</param>
         /// <param name="code">Response code</param>
         /// <returns>HTTP response message</returns>
+#if NET461
         protected virtual HttpResponseMessage CreateValidationErrorsResponse(HttpRequestMessage request, IReadOnlyCollection<string> errors, 
             HttpStatusCode statusCode, string message, string code)
+#elif NETCOREAPP2_1
+        protected virtual ObjectResult CreateValidationErrorsResponse(HttpRequest request, IReadOnlyCollection<string> errors,
+            HttpStatusCode statusCode, string message, string code)
+#endif
         {
             Check.ArgumentIsNull(request, "request");
             Check.ArgumentIsNull(errors, "errors");
@@ -53,21 +82,25 @@ namespace Agero.Core.ApiResponse
                     code: code
                 );
 
-            return request.CreateResponse(statusCode, response);
+            return CreateResponse(request, statusCode, response);
         }
 
         /// <summary>Create HTTP response message base exception</summary>
         /// <param name="request">HTTP request message</param>
         /// <param name="exception">Base exception</param>
         /// <returns>HTTP response message</returns>
+#if NET461
         protected virtual HttpResponseMessage CreateBaseExceptionResponse(HttpRequestMessage request, BaseException exception)
+#elif NETCOREAPP2_1
+        protected virtual ObjectResult CreateBaseExceptionResponse(HttpRequest request, BaseException exception)
+#endif
         {
             Check.ArgumentIsNull(request, "request");
             Check.ArgumentIsNull(exception, "exception");
 
             var response = exception.ToInfoResponse();
 
-            return request.CreateResponse(exception.HttpStatusCode, response);
+            return CreateResponse(request, exception.HttpStatusCode, response);
         }
 
         /// <summary>Create HTTP response message for unexpected exception</summary>
@@ -76,10 +109,14 @@ namespace Agero.Core.ApiResponse
         /// <param name="statusCode">HTTP status code</param>
         /// <param name="message">Response message</param>
         /// <param name="code">Response code</param>
-        
         /// <returns>HTTP response message</returns>
-        protected virtual HttpResponseMessage CreateUnexpectedExceptionResponse(HttpRequestMessage request, Exception exception,
+#if NET461
+        protected virtual HttpResponseMessage CreateUnexpectedExceptionResponse(HttpRequestMessage request, Exception exception, 
             HttpStatusCode statusCode, string message, string code)
+#elif NETCOREAPP2_1
+        protected virtual ObjectResult CreateUnexpectedExceptionResponse(HttpRequest request, Exception exception,
+            HttpStatusCode statusCode, string message, string code)
+#endif
         {
             Check.ArgumentIsNull(request, "request");
             Check.ArgumentIsNull(exception, "exception");
@@ -91,7 +128,7 @@ namespace Agero.Core.ApiResponse
                     ? exception.ToErrorResponse(message, code, ExtractAdditionalData)
                     : new InfoResponse(message, code);
 
-            return request.CreateResponse(statusCode, response);
+            return CreateResponse(request, statusCode, response);
         }
 
         /// <summary>Creates validation errors log data</summary>
@@ -100,8 +137,13 @@ namespace Agero.Core.ApiResponse
         /// <param name="status">HTTP status</param>
         /// <param name="code">Response code</param>
         /// <returns>Data</returns>
-        protected virtual async Task<object> CreateValidationErrorsLogDataAsync(HttpRequestMessage request, IReadOnlyCollection<string> errors,
+#if NET461
+        protected virtual async Task<object> CreateValidationErrorsLogDataAsync(HttpRequestMessage request, IReadOnlyCollection<string> errors, 
             HttpStatusCode status, string code)
+#elif NETCOREAPP2_1
+        protected virtual async Task<object> CreateValidationErrorsLogDataAsync(HttpRequest request, IReadOnlyCollection<string> errors,
+            HttpStatusCode status, string code)
+#endif
         {
             Check.ArgumentIsNull(request, "request");
             Check.ArgumentIsNull(errors, "errors");
@@ -127,8 +169,11 @@ namespace Agero.Core.ApiResponse
         /// <param name="status">HTTP status</param>
         /// <param name="code">Response code</param>
         /// <returns>Data</returns>
-        protected virtual async Task<object> CreateExceptionLogDataAsync(HttpRequestMessage request, Exception exception,
-            HttpStatusCode status, string code)
+#if NET461
+        protected virtual async Task<object> CreateExceptionLogDataAsync(HttpRequestMessage request, Exception exception, HttpStatusCode status, string code)
+#elif NETCOREAPP2_1
+        protected virtual async Task<object> CreateExceptionLogDataAsync(HttpRequest request, Exception exception, HttpStatusCode status, string code)
+#endif
         {
             Check.ArgumentIsNull(request, "request");
             Check.ArgumentIsNull(exception, "exception");

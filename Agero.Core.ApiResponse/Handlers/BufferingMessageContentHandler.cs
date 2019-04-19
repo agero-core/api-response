@@ -1,4 +1,6 @@
-﻿using System.Net.Http;
+﻿#if NET461
+
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,3 +22,4 @@ namespace Agero.Core.ApiResponse.Handlers
     }
 }
 
+#endif

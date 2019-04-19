@@ -1,16 +1,16 @@
-﻿using System;
-using System.Net.Http;
-using System.Web.Http;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using Agero.Core.ApiResponse.Exceptions;
 
-namespace Agero.Core.ApiResponse.Web.Controllers
+namespace Agero.Core.ApiResponse.Web.Core.Controllers
 {
-    [RoutePrefix("responses")]
-    public class ResponseController : ApiController
+    [Route("responses")]
+    [ApiController]
+    public class ResponseController : ControllerBase
     {
         [Route("applicationError")]
         [HttpGet]
-        public HttpResponseMessage GetApplicationErrorResponse()
+        public ObjectResult GetApplicationErrorResponse()
         {
             // See debug logs
             throw new Exception("Application error.");
@@ -18,12 +18,12 @@ namespace Agero.Core.ApiResponse.Web.Controllers
 
         [Route("validationError")]
         [HttpGet]
-        public HttpResponseMessage GetValidationErrorResponse()
+        public ObjectResult GetValidationErrorResponse()
         {
             // See debug logs
             throw new BadRequestException(
-                message:"Validation error.", 
-                code: "VALIDATION_ERROR", 
+                message: "Validation error.",
+                code: "VALIDATION_ERROR",
                 additionalData: new { status = "validation_error" });
         }
     }
